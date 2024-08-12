@@ -1,17 +1,32 @@
 pipeline {
-  agent {
-    docker { image 'node:16-alpine' }
-  }
-  stages {
-    stage('Build') { 
-      steps {
-        sh 'npm install' 
-      }
+    agent any
+    stages {
+        stage('Check Files') {
+            steps {
+                sh 'ls -l /var/lib/jenkins/workspace/first-jenkins-job/'
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                dir('/var/lib/jenkins/workspace/first-jenkins-job') {
+                    sh 'npm install'
+                }
+            }
+        }
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Verify Files') {
+            steps {
+                sh 'ls -l'
+            }
+        }
+        stage('Clean Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
     }
-    stage('Test') {
-      steps {
-        sh 'node --version'
-      }
-    }
-  }
 }
