@@ -1,21 +1,9 @@
 pipeline {
     agent any
     stages {
-        stage('Check Files') {
-            steps {
-                sh 'ls -l /var/lib/jenkins/workspace/first-jenkins-job/'
-            }
-        }
         stage('Install Dependencies') {
             steps {
-                dir('/var/lib/jenkins/workspace/first-jenkins-job') {
-                    sh 'npm install'
-                }
-            }
-        }
-        stage('Checkout') {
-            steps {
-                checkout scm
+                sh 'npm install'
             }
         }
         stage('Verify Files') {
