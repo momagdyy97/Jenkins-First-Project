@@ -3,10 +3,11 @@ pipeline {
     docker { image 'node:16-alpine' }
   }
   stages {
-    stage('Install Nodejs') {
+    stage('Build') { 
       steps {
-        sh 'sudo apt install nodejs'
+        sh 'npm install' 
       }
+    }
     stage('Test') {
       steps {
         sh 'node --version'
